@@ -1,0 +1,8 @@
+[project]
+name = "illust-works"
+version = "0.1.0"
+description = "Illustration rough-to-lineart workflow and works"
+requires-python = ">=3.12"
+dependencies = [
+    "pillow",
+]
