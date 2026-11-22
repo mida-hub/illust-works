@@ -9,10 +9,10 @@ description: ラフ画像（手描き写真など）からコンセプトをヒ�
 
 ## ディレクトリ構造ルール
 
-作品ごとに `<YYYYMMDD_テーマ名>/` ディレクトリを作り、以下の3段階のフォルダ構成で管理します。
+作品ごとに `artworks/<YYYYMMDD_テーマ名>/` ディレクトリを作り、以下の3段階のフォルダ構成で管理します。
 
 ```text
-<YYYYMMDD_テーマ名>/
+artworks/<YYYYMMDD_テーマ名>/
 ├── 1_raw/      # ① ラフ（初期データ・一切加工しない）
 ├── 2_work/     # ② 加工・修正サイクル用（01_resized.jpg, 02_lineart_v1.jpg, v2...）
 └── 3_output/   # ③ 最終成果物（背景透過PNG・Tシャツプリント用）
@@ -24,7 +24,7 @@ description: ラフ画像（手描き写真など）からコンセプトをヒ�
 新しいイラストを始める際は、`scripts/process_image.py init` で `1_raw` / `2_work` / `3_output` を一括作成し、`1_raw/` にラフ画像を配置します。
 
 ```bash
-uv run .agents/skills/rough-to-lineart/scripts/process_image.py init <YYYYMMDD_テーマ名>
+uv run .agents/skills/rough-to-lineart/scripts/process_image.py init artworks/<YYYYMMDD_テーマ名>
 ```
 
 ### Step 1: 前処理（リサイズ・トークン節約）

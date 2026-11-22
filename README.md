@@ -8,26 +8,27 @@
 illust-works/
 ├── .agents/skills/rough-to-lineart/   # Antigravity 用スキル＆画像処理スクリプト
 ├── pyproject.toml                     # Python 依存管理（uv / Python 3.12）
-└── <YYYYMMDD_テーマ名>/               # 作品ごとのディレクトリ
-    ├── 1_raw/                         # ① ラフ（初期データ・一切加工しない）
-    ├── 2_work/                        # ② 加工・修正サイクル用（リサイズ、線入れ v1, v2...）
-    └── 3_output/                      # ③ 最終成果物（背景透過PNG）
+└── artworks/                          # 作品ディレクトリ群
+    └── <YYYYMMDD_テーマ名>/           # 作品ごとのディレクトリ
+        ├── 1_raw/                     # ① ラフ（初期データ・一切加工しない）
+        ├── 2_work/                    # ② 加工・修正サイクル用（リサイズ、線入れ v1, v2...）
+        └── 3_output/                  # ③ 最終成果物（背景透過PNG）
 ```
 
 ## 環境
 
 - Python 3.12（`uv` で管理）
-- 依存パッケージ: `pillow`
+- 依存パッケージ: `pillow`, `pillow-heif`
 
 ## 基本的な使い方
 
 ### 1. 作品ディレクトリの作成
 ```bash
-uv run .agents/skills/rough-to-lineart/scripts/process_image.py init <YYYYMMDD_テーマ名>
+uv run .agents/skills/rough-to-lineart/scripts/process_image.py init artworks/<YYYYMMDD_テーマ名>
 ```
 
 ### 2. ラフ画像の配置
-作成した `<YYYYMMDD_テーマ名>/1_raw/` にラフ画像を配置します。
+作成した `artworks/<YYYYMMDD_テーマ名>/1_raw/` にラフ画像を配置します。
 
 ### 3. 線入れ・修正・透過PNG化
 Antigravity のチャットでラフ画像を指定し、コンセプトを伝えて線入れを依頼します（`rough-to-lineart` スキルが以下の流れで処理します）。
