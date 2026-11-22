@@ -31,8 +31,8 @@ def resize_image(input_path: str, output_path: str, max_size: int = 1280) -> Non
     print(f"Resized saved to: {output_path} ({img.size[0]}x{img.size[1]})")
 
 
-def make_transparent(input_path: str, output_path: str, threshold: int = 220) -> None:
-    """白背景の線画画像から背景を透過し、黒線のみの透過PNGを作成する。"""
+def make_transparent(input_path: str, output_path: str, threshold: int = 220, scale: int = 2) -> None:
+    """白背景の線画画像から背景を透過し、黒線のみの透過PNGを作成する（デフォルト2倍高解像度化）。"""
     img = Image.open(input_path).convert("RGBA")
     datas = img.getdata()
 
@@ -48,9 +48,11 @@ def make_transparent(input_path: str, output_path: str, threshold: int = 220) ->
             new_data.append((0, 0, 0, alpha))
 
     img.putdata(new_data)
+    if scale > 1:
+        img = img.resize((img.width * scale, img.height * scale), Image.Resampling.LANCZOS)
     Path(output_path).parent.mkdir(parents=True, exist_ok=True)
     img.save(output_path, "PNG")
-    print(f"Transparent PNG saved to: {output_path}")
+    print(f"Transparent PNG saved to: {output_path} ({img.size[0]}x{img.size[1]})")
 
 
 def main() -> None:
@@ -69,6 +71,7 @@ def main() -> None:
     p_trans.add_argument("input", help="Input lineart image path")
     p_trans.add_argument("output", help="Output transparent PNG path")
     p_trans.add_argument("--threshold", type=int, default=220, help="White threshold 0-255 (default: 220)")
+    p_trans.add_argument("--scale", type=int, default=2, help="Upscale factor for high-res output (default: 2)")
 
     args = parser.parse_args()
     if args.command == "init":
@@ -76,7 +79,7 @@ def main() -> None:
     elif args.command == "resize":
         resize_image(args.input, args.output, args.max_size)
     elif args.command == "transparent":
-        make_transparent(args.input, args.output, args.threshold)
+        make_transparent(args.input, args.output, args.threshold, args.scale)
 
 
 if __name__ == "__main__":
