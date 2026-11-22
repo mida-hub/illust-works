@@ -5,4 +5,5 @@ description = "Illustration rough-to-lineart workflow and works"
 requires-python = ">=3.12"
 dependencies = [
     "pillow",
+    "pillow-heif>=1.8.1",
 ]

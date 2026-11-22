@@ -8,6 +8,9 @@ rough-to-lineart スキル用の画像前処理・後処理スクリプト
 import argparse
 from pathlib import Path
 from PIL import Image
+from pillow_heif import register_heif_opener
+
+register_heif_opener()
 
 
 def init_project(project_dir: str) -> None:
